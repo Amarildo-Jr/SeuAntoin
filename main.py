@@ -1,3 +1,4 @@
+import os
 import discord 
 from discord.ext import commands
 import random
@@ -17,4 +18,4 @@ async def aleatorio(ctx, numero1, numero2):
   n = random.randint(int(numero1), int(numero2))
   await ctx.send(f"O numero aletório escolhido entre {numero1} e {numero2} foi {n}.")
 
-client.run("ODk5NzA3NTA0NzE0NDY1Mzcx.YW2r6A.5QgMynywlAqnE6E3Yryl03ui3W0")
+client.run(os.environ['TOKEN'])
