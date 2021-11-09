@@ -54,6 +54,8 @@ def get_channel(guild : discord.Guild, channel_name):
       return vc
   raise Exception
 
+#para os comandos de mover, o bot deve estar ativo antes dos usuarios entrarem no canal de voz
+
 #mover certo membro pra determinado canal
 @bot.command()
 async def move(ctx, member_name, channel_name):
@@ -73,22 +75,28 @@ async def move(ctx, member_name, channel_name):
   
 
 #mover todos os membros de um canal para outro
-#o bot deve estar ativo antes dos usuarios entrarem no canal de voz e tentarem mudar
 @bot.command()
-async def move_all(ctx, channel_from : discord.VoiceChannel, channel_to : discord.VoiceChannel):
-  x = len(channel_from.members) == 0
-  if x:
-    embed = criarEmbed(f'Oxente! Pra onde foi a galera que tava em {channel_from.name}? Não Tem ninguém pra mover...', colour_warning)
-    embed.set_thumbnail(url='https://t3.ftcdn.net/jpg/01/09/40/30/240_F_109403011_k3z8NEkKVjBpqOglFuj8Knbea7e4nj5O.jpg')
+async def move_all(ctx, channel_from, channel_to):
+  try:
+    channel_f = get_channel(ctx.guild, channel_from)
+    if len(channel_f.members) == 0:
+      embed = criarEmbed(f'Oxente! Pra onde foi a galera que tava em {channel_from}? Não Tem ninguém pra mover...', colour_warning)
+      embed.set_thumbnail(url='https://t3.ftcdn.net/jpg/01/09/40/30/240_F_109403011_k3z8NEkKVjBpqOglFuj8Knbea7e4nj5O.jpg')
+      await ctx.send(embed = embed)
+      return
+    try:
+      channel_t = get_channel(ctx.guild, channel_to)
+      for member in channel_f.members:
+        await member.move_to(channel_t)
+      embed = criarEmbed(f'Todo mundo do {channel_from} pegou o beco pro {channel_to}.', colour_std)
+      embed.set_thumbnail(url='https://cdn-icons.flaticon.com/png/128/1969/premium/1969142.png?token=exp=1636264256~hmac=0616d1e490d6e1adda5d9123534fe99b')
+      await ctx.send(embed = embed)
+    except:
+      embed = criarEmbed(f"Mover pra onde? Não achei nenhum canal de voz chamado {channel_to}.", colour_warning)
+      await ctx.send(embed = embed)
+  except:
+    embed = criarEmbed(f"Mover de onde? Não achei nenhum canal de voz chamado {channel_from}.", colour_warning)
     await ctx.send(embed = embed)
-    return
-  else:
-    for member in channel_from.members:
-      await member.move_to(channel_to)
-          
-  embed = criarEmbed(f'Todo mundo do {channel_from.name} pegou o beco pro {channel_to.name}.', colour_std)
-  embed.set_thumbnail(url='https://cdn-icons.flaticon.com/png/128/1969/premium/1969142.png?token=exp=1636264256~hmac=0616d1e490d6e1adda5d9123534fe99b')
-  await ctx.send(embed = embed)
 
 #escolher numero aleatorio entre dois numeros fornecidos
 @bot.command()
