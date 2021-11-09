@@ -5,6 +5,8 @@ from discord.ext import commands
 import random
 
 bot = commands.Bot(command_prefix = '&', case_insensitive = True, help_command = None)
+#guild = bot.get_guild(ID)
+
 
 colour_std = 16744576
 colour_warning = 16777028
@@ -39,14 +41,38 @@ async def ola(ctx):
 async def teste(ctx):
   await ctx.send("FALAAAA!")
 
+def get_member(guild : discord.Guild, member_name):
+  for vc in guild.voice_channels:
+    for member in vc.members:
+      if member_name == member.name:
+        return member
+  raise Exception
+
+def get_channel(guild : discord.Guild, channel_name):
+  for vc in guild.voice_channels:
+    if channel_name == vc.name:
+      return vc
+  raise Exception
+
 #mover certo membro pra determinado canal
 @bot.command()
-async def move(ctx, member : discord.Member, channel : discord.VoiceChannel):
+async def move(ctx, member_name, channel_name):
   try:
-    await member.move_to(channel)
+    member = get_member(ctx.guild, member_name)
+    try:
+      channel = get_channel(ctx.guild, channel_name)
+      await member.move_to(channel)
+      embed = criarEmbed(f"{member_name} pegou o beco.. foi parar em {channel_name}", colour_std)
+      await ctx.send(embed = embed)
+    except:
+      print("Canal de voz")
+      embed = criarEmbed(f"Pra onde? Não achei nenhum canal de voz chamado {channel_name}.", colour_warning)
+      await ctx.send(embed = embed)
   except:
-    print('Alooooooooo')
-    await ctx.send('Mover quem? Pra onde?')
+    print("Member_name")
+    embed = criarEmbed(f"Mover quem? Não vejo {member_name} em nenhum canal de voz.", colour_warning)
+    await ctx.send(embed = embed)
+  
 
 #mover todos os membros de um canal para outro
 #o bot deve estar ativo antes dos usuarios entrarem no canal de voz e tentarem mudar
