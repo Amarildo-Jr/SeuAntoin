@@ -65,11 +65,9 @@ async def move(ctx, member_name, channel_name):
       embed = criarEmbed(f"{member_name} pegou o beco.. foi parar em {channel_name}", colour_std)
       await ctx.send(embed = embed)
     except:
-      print("Canal de voz")
       embed = criarEmbed(f"Pra onde? Não achei nenhum canal de voz chamado {channel_name}.", colour_warning)
       await ctx.send(embed = embed)
   except:
-    print("Member_name")
     embed = criarEmbed(f"Mover quem? Não vejo {member_name} em nenhum canal de voz.", colour_warning)
     await ctx.send(embed = embed)
   
