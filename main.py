@@ -1,6 +1,7 @@
 import os
 import discord
 from discord.ext import commands
+from keep_alive import keep_alive
 
 import random
 
@@ -114,9 +115,16 @@ async def aleatorio(ctx, numero1, numero2):
   await ctx.send(embed = embed)
 
 @bot.command()
-async def josephEbom(ctx):
-  imagens = ["Images/braille.png", "Images/mexicano.png", "Images/original.png", "Images/inverso_moca.png", "Images/inverso_rapaz.png"]
+async def cassianoDeuCerto(ctx):
+  imagens = ["Images/cassiano/so_abalo.png", "Images/cassiano/vdc_n.png", "Images/cassiano/vdc_nao.png", "Images/cassiano/vdc.png"]
   img_escolhida = imagens[random.randint(0, len(imagens) - 1)]
   await ctx.send(file=discord.File(img_escolhida))
 
+@bot.command()
+async def josephEbom(ctx):
+  imagens = ["Images/joseph/braille.png", "Images/joseph/mexicano.png", "Images/joseph/original.png", "Images/joseph/inverso_moca.png", "Images/joseph/inverso_rapaz.png"]
+  img_escolhida = imagens[random.randint(0, len(imagens) - 1)]
+  await ctx.send(file=discord.File(img_escolhida))
+
+keep_alive()
 bot.run(os.environ['TOKEN'])
