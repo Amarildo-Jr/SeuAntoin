@@ -5,7 +5,14 @@ from keep_alive import keep_alive
 
 import random
 
-bot = commands.Bot(command_prefix = '&', case_insensitive = True, help_command = None)
+intents = discord.Intents.default()
+intents.members = True
+
+bot = commands.Bot(command_prefix = '&', 
+case_insensitive = True, 
+help_command = None,
+intents=discord.Intents.all()
+)
 #guild = bot.get_guild(ID)
 
 
@@ -59,16 +66,29 @@ def get_channel(guild : discord.Guild, channel_name):
 
 #Desconecta o usuário do canal de voz onde ele está
 @bot.command()
-async def disconnect_me(ctx):
-  try:
-    member = get_member(ctx.guild, ctx.author.name)
-    await member.move_to(None)
-    embed = criarEmbed(f"{member.name} pegou o beco.. foi-se embora", colour_std)
-    await ctx.send(embed = embed)
-  except:
-    embed = criarEmbed(f"{ctx.author.name} nem chegou e já quer sair.", colour_warning)
-    await ctx.send(embed = embed)
-  
+async def disconnect(ctx, member_name):
+  member = None
+  embed = None
+  if(member_name.upper() == 'ME'):
+    try:
+      member = get_member(ctx.guild, ctx.author.name)
+      embed = criarEmbed(f"@{member.name} pegou o beco.. foi-se embora", colour_std)
+    except:
+      embed = criarEmbed(f"@{ctx.author.name} nem chegou e já quer sair.", colour_warning)
+      await ctx.send(embed = embed)
+      return
+  else:
+    try:
+      member = get_member(ctx.guild, member_name)
+      embed = criarEmbed(f"@{member.name}, te botaram pra correr!", colour_std)
+    except:
+      embed = criarEmbed(f"@{member_name} nem chegou e já querem te expulsar.", colour_warning)
+      await ctx.send(embed = embed)
+      return
+
+  await member.move_to(None)
+  await ctx.send(embed = embed)
+    
 
 #mover certo membro pra determinado canal
 @bot.command()
