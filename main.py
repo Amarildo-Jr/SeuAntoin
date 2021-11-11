@@ -57,6 +57,19 @@ def get_channel(guild : discord.Guild, channel_name):
 
 #para os comandos de mover, o bot deve estar ativo antes dos usuarios entrarem no canal de voz
 
+#Desconecta o usuário do canal de voz onde ele está
+@bot.command()
+async def disconnect_me(ctx):
+  try:
+    member = get_member(ctx.guild, ctx.author.name)
+    await member.move_to(None)
+    embed = criarEmbed(f"{member.name} pegou o beco.. foi-se embora", colour_std)
+    await ctx.send(embed = embed)
+  except:
+    embed = criarEmbed(f"{ctx.author.name} nem chegou e já quer sair.", colour_warning)
+    await ctx.send(embed = embed)
+  
+
 #mover certo membro pra determinado canal
 @bot.command()
 async def move(ctx, member_name, channel_name):
