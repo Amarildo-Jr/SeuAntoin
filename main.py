@@ -36,7 +36,7 @@ def criarEmbedThumb(title, colour, image):
 async def on_ready():
   print("{0.user.name} tá on!".format(bot))
 
-@bot.command()
+@bot.group(invoke_without_command=True)
 async def help(ctx):
   embed = discord.Embed(
     title = "Lista de Comandos",
@@ -47,6 +47,39 @@ async def help(ctx):
   embed.add_field(name='Conselhos', value='`josephEbom`, `cassianoDeuCerto`', inline = False)
   embed.add_field(name='Gerenciar Canais de voz', value='`move`, `move_all`, `disconnect`', inline = False)
   await ctx.send(embed = embed)
+
+  @help.command()
+  async def ola(ctx):
+    embed = discord.Embed(
+      title = "Ola",
+      description = "O bot diz \"Ola!\" a quem lhe cumprimenta.",
+      colour = colour_std
+    )
+    embed.add_field(name = '**Sintaxe**', value = '&ola')
+
+    await ctx.send(embed = embed)
+
+  @help.command()
+  async def teste(ctx):
+    embed = discord.Embed(
+      title = "Teste",
+      description = "O bot retorna uma mensagem de teste para saber se está ativo/online.",
+      colour = colour_std
+    )
+    embed.add_field(name = '**Sintaxe**', value = '&teste')
+
+    await ctx.send(embed = embed)
+  
+  @help.command()
+  async def aleatorio(ctx):
+    embed = discord.Embed(
+      title = "Aleatorio",
+      description = "O bot escolhe um numero aleatorio no intervalo de dois numeros n1 e n2 fornecidos.",
+      colour = colour_std
+    )
+    embed.add_field(name = '**Sintaxe**', value = '&aleatorio n1 n2')
+
+    await ctx.send(embed = embed)
 
 #bot diz ola a quem o chama
 @bot.command()
