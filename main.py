@@ -13,8 +13,6 @@ case_insensitive = True,
 help_command = None,
 intents=discord.Intents.all()
 )
-#guild = bot.get_guild(ID)
-
 
 colour_std = 16744576
 colour_warning = 16777028
@@ -33,11 +31,22 @@ def criarEmbedThumb(title, colour, image):
   )
   return embed
 
-
 #avisar no console que o bot ta on
 @bot.event
 async def on_ready():
   print("{0.user.name} tá on!".format(bot))
+
+@bot.command()
+async def help(ctx):
+  embed = discord.Embed(
+    title = "Lista de Comandos",
+    description = "Para saber mais sobre um comando, digite  `&help <nome_do_comando>`",
+    colour = colour_std
+  )
+  embed.add_field(name='Geral', value='`ola`, `teste`, `aleatorio`')
+  embed.add_field(name='Conselhos', value='`josephEbom`, `cassianoDeuCerto`', inline = False)
+  embed.add_field(name='Gerenciar Canais de voz', value='`move`, `move_all`, `disconnect`', inline = False)
+  await ctx.send(embed = embed)
 
 #bot diz ola a quem o chama
 @bot.command()
