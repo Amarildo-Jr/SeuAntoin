@@ -45,7 +45,7 @@ async def help(ctx):
   )
   embed.add_field(name='Geral', value='`ola`, `teste`, `aleatorio`')
   embed.add_field(name='Conselhos', value='`josephEbom`, `cassianoDeuCerto`', inline = False)
-  embed.add_field(name='Gerenciar Canais de voz', value='`move`, `move_all`, `disconnect`', inline = False)
+  embed.add_field(name='Gerenciar Canais de voz', value='`mv`, `mvAll`, `dct`', inline = False)
   await ctx.send(embed = embed)
 
   @help.command()
@@ -111,7 +111,7 @@ def get_channel(guild : discord.Guild, channel_name):
 
 #Desconecta o usuário do canal de voz onde ele está
 @bot.command()
-async def disconnect(ctx, member_name):
+async def dct(ctx, member_name):
   member = None
   embed = None
   if(member_name.upper() == 'ME'):
@@ -137,7 +137,7 @@ async def disconnect(ctx, member_name):
 
 #mover certo membro pra determinado canal
 @bot.command()
-async def move(ctx, member_name, channel_name):
+async def mv(ctx, member_name, channel_name):
   try:
     member = get_member(ctx.guild, member_name)
     try:
@@ -155,7 +155,7 @@ async def move(ctx, member_name, channel_name):
 
 #mover todos os membros de um canal para outro
 @bot.command()
-async def move_all(ctx, channel_from, channel_to):
+async def mvAll(ctx, channel_from, channel_to):
   try:
     channel_f = get_channel(ctx.guild, channel_from)
     if len(channel_f.members) == 0:
