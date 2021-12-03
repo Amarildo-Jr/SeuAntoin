@@ -96,6 +96,17 @@ async def help(ctx):
     embed.add_field(name = '**Argumentos**', value = 'User: Nome de usuário daquele que será desconectado\nme: Utilizar para desconectar o autor da mensagem.')
 
     await ctx.send(embed = embed)
+  @help.command()
+  async def mv(ctx):
+    embed = discord.Embed(
+      title = "Move",
+      description = "Move o usuário especificado para o canal de voz especificado.",
+      colour = colour_std
+    )
+    embed.add_field(name = '**Sintaxe**', value = '&mv User ChannelName\n&mv me ChannelName', inline = False)
+    embed.add_field(name = '**Argumentos**', value = 'User: Nome do usuário que será movido\nme: Utilizar para mover o autor da mensagem.\nChannelName: Nome do canal de voz destino.')
+
+    await ctx.send(embed = embed)
 
 #bot diz ola a quem o chama
 @bot.command()
@@ -151,20 +162,30 @@ async def dct(ctx, member_name):
 #mover certo membro pra determinado canal
 @bot.command()
 async def mv(ctx, member_name, channel_name):
-  try:
-    member = get_member(ctx.guild, member_name)
+  if(member_name.upper() == 'ME'):
+    member = get_member(ctx.guild, ctx.author.name)
     try:
       channel = get_channel(ctx.guild, channel_name)
       await member.move_to(channel)
-      embed = criarEmbed(f"{member_name} pegou o beco.. foi parar em {channel_name}", colour_std)
+      embed = criarEmbed(f"{ctx.author.name} pegou o beco.. foi parar em {channel_name}", colour_std)
       await ctx.send(embed = embed)
     except:
       embed = criarEmbed(f"Pra onde? Não achei nenhum canal de voz chamado {channel_name}.", colour_warning)
       await ctx.send(embed = embed)
-  except:
-    embed = criarEmbed(f"Mover quem? Não vejo {member_name} em nenhum canal de voz.", colour_warning)
-    await ctx.send(embed = embed)
-  
+  else:
+    try:
+      member = get_member(ctx.guild, member_name)
+      try:
+        channel = get_channel(ctx.guild, channel_name)
+        await member.move_to(channel)
+        embed = criarEmbed(f"{member_name} pegou o beco.. foi parar em {channel_name}", colour_std)
+        await ctx.send(embed = embed)
+      except:
+        embed = criarEmbed(f"Pra onde? Não achei nenhum canal de voz chamado {channel_name}.", colour_warning)
+        await ctx.send(embed = embed)
+    except:
+      embed = criarEmbed(f"Mover quem? Não vejo {member_name} em nenhum canal de voz.", colour_warning)
+      await ctx.send(embed = embed)
 
 #mover todos os membros de um canal para outro
 @bot.command()
