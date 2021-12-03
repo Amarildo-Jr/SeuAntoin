@@ -108,6 +108,18 @@ async def help(ctx):
 
     await ctx.send(embed = embed)
 
+  @help.command()
+  async def mvAll(ctx):
+    embed = discord.Embed(
+      title = "MoveAll",
+      description = "Move todos os usuários de um determinado canal de voz para outro especificado.",
+      colour = colour_std
+    )
+    embed.add_field(name = '**Sintaxe**', value = '&mvAll Channel1 Channel2', inline = False)
+    embed.add_field(name = '**Argumentos**', value = 'Channel1: Nome do canal de voz origem que contém todos os usuários que serão movidos.\nChannel2: Nome do canal de voz destino para onde todos os usuários selecionados anteriormente serão movidos.')
+
+    await ctx.send(embed = embed)
+
 #bot diz ola a quem o chama
 @bot.command()
 async def ola(ctx):
