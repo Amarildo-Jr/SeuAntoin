@@ -119,6 +119,30 @@ async def help(ctx):
     embed.add_field(name = '**Argumentos**', value = 'Channel1: Nome do canal de voz origem que contém todos os usuários que serão movidos.\nChannel2: Nome do canal de voz destino para onde todos os usuários selecionados anteriormente serão movidos.')
 
     await ctx.send(embed = embed)
+  
+  @help.command()
+  async def josephEbom(ctx):
+    embed = discord.Embed(
+      title = "Joseph, é bom?",
+      description = "Pergunta-se ao graaaaande Joseph se o que você pensa em fazer é bom. E então ele lhe responderá.",
+      colour = colour_std
+    )
+    embed.add_field(name = '**Sintaxe**', value = '&josephEbom', inline = False)
+    embed.add_field(name = '**Argumentos**', value = 'Este comando não recebe argumentos.')
+
+    await ctx.send(embed = embed)
+
+  @help.command()
+  async def cassianoDeuCerto(ctx):
+    embed = discord.Embed(
+      title = "Cassiano, deu certo?",
+      description = "Pergunta-se ao nosso mais bem informado Cassiano se aquilo que você não tem resposta deu certo. E então ele lhe responderá.",
+      colour = colour_std
+    )
+    embed.add_field(name = '**Sintaxe**', value = '&cassianoDeuCerto', inline = False)
+    embed.add_field(name = '**Argumentos**', value = 'Este comando não recebe argumentos.')
+
+    await ctx.send(embed = embed)
 
 #bot diz ola a quem o chama
 @bot.command()
