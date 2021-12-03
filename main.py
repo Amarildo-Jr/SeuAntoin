@@ -55,7 +55,8 @@ async def help(ctx):
       description = "O bot diz \"Ola!\" a quem lhe cumprimenta.",
       colour = colour_std
     )
-    embed.add_field(name = '**Sintaxe**', value = '&ola')
+    embed.add_field(name = '**Sintaxe**', value = '&ola', inline = False)
+    embed.add_field(name = '**Argumentos**', value = 'Este comando não recebe argumentos.')
 
     await ctx.send(embed = embed)
 
@@ -66,7 +67,8 @@ async def help(ctx):
       description = "O bot retorna uma mensagem de teste para saber se está ativo/online.",
       colour = colour_std
     )
-    embed.add_field(name = '**Sintaxe**', value = '&teste')
+    embed.add_field(name = '**Sintaxe**', value = '&teste', inline = False)
+    embed.add_field(name = '**Argumentos**', value = 'Este comando não recebe argumentos.')
 
     await ctx.send(embed = embed)
   
@@ -74,10 +76,11 @@ async def help(ctx):
   async def aleatorio(ctx):
     embed = discord.Embed(
       title = "Aleatorio",
-      description = "O bot escolhe um numero aleatorio no intervalo de dois numeros n1 e n2 fornecidos.",
+      description = "O bot escolhe um numero aleatorio no intervalo de dois numeros fornecidos.",
       colour = colour_std
     )
-    embed.add_field(name = '**Sintaxe**', value = '&aleatorio n1 n2')
+    embed.add_field(name = '**Sintaxe**', value = '&aleatorio n1 n2', inline = False)
+    embed.add_field(name = '**Argumentos**', value = 'n1: Primeiro numero do intervalo.\nn2: Segundo numero do intervalo')
 
     await ctx.send(embed = embed)
 
