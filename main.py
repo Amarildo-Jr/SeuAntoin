@@ -46,7 +46,7 @@ async def help(ctx):
   embed.add_field(name='Geral', value='`ola`, `teste`, `aleatorio`')
   embed.add_field(name='Conselhos', value='`josephEbom`, `cassianoDeuCerto`', inline = False)
   embed.add_field(name='Gerenciar Canais de voz', value='`mv`, `mvAll`, `dct`', inline = False)
-  embed.set_footer(text='Todos os comandos disconsideram letras maiusculas de minusculas.')
+  embed.set_footer(text='Todos os comandos desconsideram letras maiusculas de minusculas.')
   await ctx.send(embed = embed)
 
   @help.command()
