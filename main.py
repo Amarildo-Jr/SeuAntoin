@@ -46,6 +46,7 @@ async def help(ctx):
   embed.add_field(name='Geral', value='`ola`, `teste`, `aleatorio`')
   embed.add_field(name='Conselhos', value='`josephEbom`, `cassianoDeuCerto`', inline = False)
   embed.add_field(name='Gerenciar Canais de voz', value='`mv`, `mvAll`, `dct`', inline = False)
+  embed.set_footer(text='Todos os comandos disconsideram letras maiusculas de minusculas.')
   await ctx.send(embed = embed)
 
   @help.command()
@@ -81,6 +82,18 @@ async def help(ctx):
     )
     embed.add_field(name = '**Sintaxe**', value = '&aleatorio n1 n2', inline = False)
     embed.add_field(name = '**Argumentos**', value = 'n1: Primeiro numero do intervalo.\nn2: Segundo numero do intervalo')
+
+    await ctx.send(embed = embed)
+
+  @help.command()
+  async def dct(ctx):
+    embed = discord.Embed(
+      title = "Disconnect",
+      description = "Desconecta o usuário especificado do canal de voz onde ele está.",
+      colour = colour_std
+    )
+    embed.add_field(name = '**Sintaxe**', value = '&dct User\n&dct me', inline = False)
+    embed.add_field(name = '**Argumentos**', value = 'User: Nome de usuário daquele que será desconectado\nme: Utilizar para desconectar o autor da mensagem.')
 
     await ctx.send(embed = embed)
 
